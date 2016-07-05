@@ -47,6 +47,7 @@ class Numerology_Calculator_Admin {
 
     function  settings_page() {
         echo '<h1>Numerology Calculator Options</h1>';
+        require_once plugin_dir_path(__FILE__) . 'partials/options-page.php';
     }
 
 }
