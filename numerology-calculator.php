@@ -15,3 +15,12 @@
 if ( ! defined( 'WPINC' ) ) {
     die;
 }
+
+require_once plugin_dir_path( __FILE__ ) . 'includes/class-numerology-calculator.php';
+
+function run_numerology_calculator() {
+    $nmcl = new Numerology_Calculator();
+    $nmcl->run();
+}
+
+run_numerology_calculator();
