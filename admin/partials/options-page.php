@@ -10,14 +10,13 @@
  */
 ?>
 
-<div id="numerology-calculator-options">
+<div id="numerology-calculator-options" class="wrap">
 
-    <?php $post_meta = get_post_meta( get_the_ID() ); ?>
-    <table id="numerology-calculator-options-data">
-        <tr>
-            <td class="title">Title</td>
-            <td class="value"><input type="text" value="Insert" /></td>
-        </tr>
-    </table>
+    <form method="post" action="options.php">
+        <?php settings_fields('nmcl_options'); ?>
+        <?php do_settings_sections('numerology_calculator'); ?>
+
+        <?php submit_button( 'Save Options' ); ?>
+    </form>
 
 </div><!-- #numerology-calculator-options -->

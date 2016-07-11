@@ -21,7 +21,6 @@
  *
  * @since    0.0.2
  */
-
 class Numerology_Calculator
 {
 
@@ -30,7 +29,7 @@ class Numerology_Calculator
      * throughout the plugin.
      *
      * @access protected
-     * @var    Numerology_Calculator_Loader   $loader    Manages hooks between the WordPress hooks and the callback functions.
+     * @var    Numerology_Calculator_Loader $loader Manages hooks between the WordPress hooks and the callback functions.
      */
     protected $loader;
 
@@ -39,7 +38,7 @@ class Numerology_Calculator
      * for internationalization and other purposes.
      *
      * @access protected
-     * @var    string   $plugin_slug    The single, hyphenated string used to identify this plugin.
+     * @var    string $plugin_slug The single, hyphenated string used to identify this plugin.
      */
     protected $plugin_slug;
 
@@ -48,7 +47,7 @@ class Numerology_Calculator
      * the plugin.
      *
      * @access protected
-     * @var    string   $version    The current version of the plugin.
+     * @var    string $version The current version of the plugin.
      */
     protected $version;
 
@@ -108,7 +107,8 @@ class Numerology_Calculator
     {
         $admin = new Numerology_Calculator_Admin($this->get_version());
         $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueue_styles');
-        $this->loader->add_action( 'admin_menu', $admin, 'admin_menu' );
+        $this->loader->add_action('admin_menu', $admin, 'add_options_pages');
+        $this->loader->add_action('admin_init', $admin, 'admin_init');
 
     }
 
