@@ -54,9 +54,11 @@ class Numerology_Calculator_Common
         );
     }
 
-    public static function create_shortcode($atts, $content=null) {
-        return "Shortcode Is working";
-        
+    public static function create_shortcode()
+    {
+
+        require_once plugin_dir_path(__FILE__) . 'partials/form.php';
+
     }
 
 }
