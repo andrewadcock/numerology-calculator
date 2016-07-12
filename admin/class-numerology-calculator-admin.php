@@ -45,6 +45,7 @@ class Numerology_Calculator_Admin
     public function __construct($version)
     {
         $this->version = $version;
+        $this->set_default_values();
     }
 
     /**
@@ -113,17 +114,6 @@ class Numerology_Calculator_Admin
         );
 
         add_settings_field(
-            'text_test',
-            'Text Test',
-            array(
-                $this,
-                'plugin_setting_string'
-            ),
-            'numerology_calculator',
-            'settings_main'
-        );
-
-        add_settings_field(
             'theme_css_select',
             'Select Display Theme',
             array(
@@ -133,19 +123,183 @@ class Numerology_Calculator_Admin
             'numerology_calculator',
             'settings_main'
         );
+
+        add_settings_field(
+            'lpn1',
+            'Life Path Number: 1',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn1'
+            )
+        );
+
+        add_settings_field(
+            'lpn2',
+            'Life Path Number: 2',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn2'
+            )
+        );
+
+        add_settings_field(
+            'lpn3',
+            'Life Path Number: 3',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn3'
+            )
+        );
+
+        add_settings_field(
+            'lpn4',
+            'Life Path Number: 4',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn4'
+            )
+        );
+
+        add_settings_field(
+            'lpn5',
+            'Life Path Number: 5',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn5'
+            )
+        );
+
+        add_settings_field(
+            'lpn6',
+            'Life Path Number: 6',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn6'
+            )
+        );
+
+        add_settings_field(
+            'lpn7',
+            'Life Path Number: 7',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn7'
+            )
+        );
+
+        add_settings_field(
+            'lpn8',
+            'Life Path Number: 8',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn8'
+            )
+        );
+
+        add_settings_field(
+            'lpn9',
+            'Life Path Number: 9',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn9'
+            )
+        );
+
+        add_settings_field(
+            'lpn11',
+            'Life Path Number: 11',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn11'
+            )
+        );
+
+        add_settings_field(
+            'lpn22',
+            'Life Path Number: 22',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn22'
+            )
+        );
+
+        add_settings_field(
+            'lpn33',
+            'Life Path Number: 33',
+            array(
+                $this,
+                'life_path_numbers'
+            ),
+            'numerology_calculator',
+            'settings_main',
+            array(
+                'id' => 'lpn33'
+            )
+        );
+
     }
 
     public function main_settings_section_text()
     {
         echo '<p>This is the Numerology Calculator settings page. Please select from the options below.</p>';
-        echo '<p>Add the shortcode <code>[numerology-calculator]</code> to you post or page.</p>';
+        echo '<p>Add the shortcode <code>[numerology-calculator]</code> to a post or page.</p>';
     }
 
-    public function plugin_setting_string()
-    {
-        $options = get_option('nmcl_options');
-        echo "<input id='theme-css-select' name='nmcl_options[text_test]' size='40' type='text' value='{$options['text_test']}' />";
-    }
 
     public function theme_css_select()
     {
@@ -161,6 +315,13 @@ class Numerology_Calculator_Admin
         <?php
     }
 
+    public function life_path_numbers($args)
+    {
+        $id = $args['id'];
+        $options = get_option('nmcl_options');
+        echo "<textarea id='{$id}' name='nmcl_options[{$id}]'>{$options[$id]}</textarea>";
+    }
+
     public function options_validate($input)
     {
 //        $newinput['theme_css_select'] = trim($input['theme_css_select']);
@@ -168,6 +329,27 @@ class Numerology_Calculator_Admin
 //        $newinput['dropdown_test'] = $input;
         $newinput = $input;
         return $newinput;
+    }
+
+    public function set_default_values() {
+        if ( get_option( 'nmcl_options' ) === false ) {
+            $nmcl_options_default = array(
+                'theme_css_select' => 'none',
+                'lpn1' => 'This is the default for Life Path Number: 1',
+                'lpn2' => 'This is the default for Life Path Number: 2',
+                'lpn3' => 'This is the default for Life Path Number: 3',
+                'lpn4' => 'This is the default for Life Path Number: 4',
+                'lpn5' => 'This is the default for Life Path Number: 5',
+                'lpn6' => 'This is the default for Life Path Number: 6',
+                'lpn7' => 'This is the default for Life Path Number: 7',
+                'lpn8' => 'This is the default for Life Path Number: 8',
+                'lpn9' => 'This is the default for Life Path Number: 9',
+                'lpn11' => 'This is the default for Life Path Number: 11',
+                'lpn22' => 'This is the default for Life Path Number: 22',
+                'lpn33' => 'This is the default for Life Path Number: 33'
+            );
+            update_option('nmcl_options', $nmcl_options_default);
+        }
     }
 
 }

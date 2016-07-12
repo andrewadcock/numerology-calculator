@@ -35,7 +35,6 @@ class Numerology_Calculator_Common
     {
         $this->version = $version;
 
-
     }
 
     /**

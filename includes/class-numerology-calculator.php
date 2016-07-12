@@ -127,8 +127,8 @@ class Numerology_Calculator
     private function define_common_hooks()
     {
         $common = new Numerology_Calculator_Common($this->get_version());
-        add_shortcode('numerology-calculator', array(Numerology_Calculator_Common, create_shortcode) );
-        
+        add_shortcode('numerology-calculator', array($this, 'create_shortcode') );
+
         $this->loader->add_action('admin_enqueue_scripts', $common, 'enqueue_styles');
 
     }
