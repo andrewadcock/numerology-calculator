@@ -74,7 +74,6 @@ class Numerology_Calculator_Loader
         $this->filters = $this->add($this->filters, $hook, $component, $callback);
     }
 
-
     /**
      * Registers the filters with WordPress and the respective objects and
      * their methods.

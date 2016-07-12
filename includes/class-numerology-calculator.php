@@ -65,10 +65,11 @@ class Numerology_Calculator
     {
 
         $this->plugin_slug = 'numerology-calculator-slug';
-        $this->version = '0.0.2';
+        $this->version = '0.0.3';
 
         $this->load_dependencies();
         $this->define_admin_hooks();
+        $this->define_common_hooks();
 
     }
 
@@ -88,6 +89,8 @@ class Numerology_Calculator
     {
 
         require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-numerology-calculator-admin.php';
+
+        require_once plugin_dir_path(dirname(__FILE__)) . 'common/class-numerology-calculator-common.php';
 
         require_once plugin_dir_path(__FILE__) . 'class-numerology-calculator-loader.php';
 
@@ -109,6 +112,24 @@ class Numerology_Calculator
         $this->loader->add_action('admin_enqueue_scripts', $admin, 'enqueue_styles');
         $this->loader->add_action('admin_menu', $admin, 'add_options_pages');
         $this->loader->add_action('admin_init', $admin, 'admin_init');
+
+    }
+
+    /**
+     * Defines the hooks and callback functions that are used for setting up the plugin stylesheets
+     * and the plugin frontend functionality.
+     *
+     * This function relies on the Numerology Calculator Common class and the Numerology Calculator
+     * Loader class property.
+     *
+     * @access    private
+     */
+    private function define_common_hooks()
+    {
+        $common = new Numerology_Calculator_Common($this->get_version());
+        add_shortcode('numerology-calculator', array(Numerology_Calculator_Common, create_shortcode) );
+        
+        $this->loader->add_action('admin_enqueue_scripts', $common, 'enqueue_styles');
 
     }
 
