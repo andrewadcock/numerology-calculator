@@ -304,12 +304,13 @@ class Numerology_Calculator_Admin
     public function theme_css_select()
     {
         $options = get_option('nmcl_options');
+
         $theme_css_select = $options['theme_css_select'];
         ?>
         <select id='dropdown-test' name='nmcl_options[theme_css_select]'">
-            <option value='none' <?php selected( $theme_css_select, 'none' ); ?>>None</option>
-            <option value='light' <?php selected( $theme_css_select, 'light' ); ?>>Light</option>
-            <option value='dark' <?php selected( $theme_css_select, 'dark' ); ?>>Dark</option>
+        <option value='none' <?php selected($theme_css_select, 'none'); ?>>None</option>
+        <option value='light' <?php selected($theme_css_select, 'light'); ?>>Light</option>
+        <option value='dark' <?php selected($theme_css_select, 'dark'); ?>>Dark</option>
         </select>
 
         <?php
@@ -319,6 +320,7 @@ class Numerology_Calculator_Admin
     {
         $id = $args['id'];
         $options = get_option('nmcl_options');
+
         echo "<textarea id='{$id}' name='nmcl_options[{$id}]'>{$options[$id]}</textarea>";
     }
 
@@ -331,8 +333,9 @@ class Numerology_Calculator_Admin
         return $newinput;
     }
 
-    public function set_default_values() {
-        if ( get_option( 'nmcl_options' ) === false ) {
+    public function set_default_values()
+    {
+        if (get_option('nmcl_options') === false) {
             $nmcl_options_default = array(
                 'theme_css_select' => 'none',
                 'lpn1' => 'This is the default for Life Path Number: 1',
@@ -348,6 +351,7 @@ class Numerology_Calculator_Admin
                 'lpn22' => 'This is the default for Life Path Number: 22',
                 'lpn33' => 'This is the default for Life Path Number: 33'
             );
+
             update_option('nmcl_options', $nmcl_options_default);
         }
     }
