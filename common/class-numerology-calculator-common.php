@@ -27,8 +27,6 @@ class Numerology_Calculator_Common
     private $version;
 
 
-    private $db;
-
     /**
      * Initializes this class and stores the current version of this plugin.
      *
@@ -37,12 +35,14 @@ class Numerology_Calculator_Common
     public function __construct($version)
     {
         $this->version = $version;
+
+        // Add shortcode for use in Posts
         add_shortcode('numerology-calculator', array($this, 'create_shortcode'));
 
+        // Add support for AJAX requests
         add_action('wp_ajax_nmclLifePathNumber', array($this, 'nmclLifePathNumber'));
         add_action('wp_ajax_nopriv_nmclLifePathNumber', array($this, 'nmclLifePathNumber'));
 
-        $this->db = $GLOBALS['wpdb'];
     }
 
     /**
@@ -79,18 +79,23 @@ class Numerology_Calculator_Common
 
     }
 
+    /**
+     * Initialize shortcode for use in posts
+     */
     public static function create_shortcode()
     {
         require_once plugin_dir_path(__FILE__) . 'partials/form.php';
     }
 
+
     public function nmclLifePathNumber()
     {
-        //$nmcl_options = get_option('nmcl_options');
 
+        // Get birthday values from form submission
         parse_str($_POST['vars'], $bday);
+
         $life_path_number = $this->getLifePathNumber($bday);
-        echo $life_path_number;
+        //echo "Life Path: " . $life_path_number;
 
         die();
 
@@ -100,77 +105,89 @@ class Numerology_Calculator_Common
     {
 
         /**
-         * Get Post Vars
+         * Get Post Vars and convert to integer
          */
-        $day = $bday['day'];
-        $month_final = $bday['month'];
-        $year = $bday['year'];
+        $day = (int)$bday['day'];
+        $month = (int)$bday['month'];
+        $year = (int)$bday['year'];
 
-        $final_day = $this->getFinalInt($day);
-        $final_year = $this->getFinalInt2($year);
-        echo $final_day . ' Final Year: ' . $final_year;
+        /**
+         * Add individual integers
+         */
+        $initial_total = $this->initialBdayConversion($day, $month, $year);
 
+        /**
+         * Reduce to valid Life Path Number
+         */
+        $life_path_number = $this->computeLifePathNumber($initial_total);
+        echo $life_path_number;
+
+        /**
+         * Retrieve Life Path Number description
+         */
+        $life_path_number_description = $this->getLifePathNumberDescription($life_path_number);
+
+        echo $life_path_number_description;
+    }
+
+    /**
+     * Converts birthday input to single integer via addition
+     *
+     * @param $day
+     * @param $month
+     * @param $year
+     * @return int
+     */
+    public function initialBdayConversion($day, $month, $year)
+    {
+        // Split into array of single chars and combine in one array
+        $total_array = array_merge(str_split($day, 1), str_split($month, 1), str_split($year, 1));
+
+        // Initialize total to 0
+        $initial_total = 0;
+
+        // Add each array element together
+        foreach ($total_array as $single_int) {
+            $initial_total += $single_int;
+        }
+        return $initial_total;
 
     }
 
-
-    // Int may need to be reduced 3 times
-    public function getFinalInt($int)
+    /**
+     * Reduces life path number to either less than 9 or a Master Number (11, 22, 33)
+     *
+     * @param $initial_total
+     * @return mixed
+     */
+    public function computeLifePathNumber($initial_total)
     {
-        // Split day into single integers
-        $int_array = str_split($int, 1);
 
-        // Set starting point for day
-        $int_reduced = 0;
+        if (($initial_total != 11) && ($initial_total != 22) && ($initial_total != 33) && ($initial_total >= 9)) {
 
-        // Add each integer together
-        foreach ($int_array as $singleint) {
-            $int_reduced += $singleint;
-        }
+            // Split into array of inividual integers
+            $split = str_split($initial_total, 1);
 
-
-        // Check if day is reduced to single digit integer
-        if (strlen($int_reduced) == 1) {
-            $int_final = $int_reduced;
-        } else {
-
-            // Reset day reduced to 0
-            $int_final = 0;
-
-            // Reduce day again by adding integers together
-            $int_partial = str_split($int_reduced);
-
-            // Add each integer and set to day_final
-            foreach ($int_partial as $single_int) {
-                $int_final += $single_int;
+            $reduced_total = 0;
+            foreach ($split as $individual) {
+                $reduced_total += $individual;
             }
 
-
+            return $this->computeLifePathNumber($reduced_total);
+        } else {
+            return $initial_total;
         }
-        return 'Int final is: ' . $int_final;
     }
 
-    public function getFinalInt2($int)
-    {
-        $int = (int)$int;
+    /**
+     * Retrieves life path number description from options
+     *
+     * @param $life_path_number
+     * @return mixed
+     */
+    public function getLifePathNumberDescription($life_path_number) {
+        $nmcl_options = get_option('nmcl_options');
 
-
-        if ($int > 9) {
-
-            // Revised starting point after reduction
-            $int_reduced = 0;
-
-            // Split multi-char int into single integers
-            $int_array = str_split($int, 1);
-
-            // Add each integer and set to day_final
-            foreach ($int_array as $single_int) {
-                $int_reduced += $single_int;
-            }
-            return $this->getFinalInt2($int_reduced);
-        } else {
-
-            return 'Int final is: ' . $int;
-        }
+        return $nmcl_options['lpn' . $life_path_number];
     }
 }
