@@ -3,7 +3,7 @@
 
         <tr>
             <td>
-                <label for="day">Day</label>
+                <label for="day"><?php _e('Day', NMCL_TEXT_DOMAIN); ?></label>
             </td>
             <td>
                 <select name="day">
@@ -18,28 +18,28 @@
         </tr>
         <tr>
             <td>
-                <label for="month">Month</label>
+                <label for="month"><?php _e('Month', NMCL_TEXT_DOMAIN); ?></label>
             </td>
             <td>
                 <select name="month">
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
+                    <option value="1"><?php _e('January', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="2"><?php _e('February', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="3"><?php _e('March', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="4"><?php _e('April', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="5"><?php _e('May', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="6"><?php _e('June', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="7"><?php _e('July', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="8"><?php _e('August', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="9"><?php _e('September', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="10"><?php _e('October', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="11"><?php _e('November', NMCL_TEXT_DOMAIN); ?></option>
+                    <option value="12"><?php _e('December', NMCL_TEXT_DOMAIN); ?></option>
                 </select>
             </td>
         </tr>
         <tr>
             <td>
-                <label for="year">Year</label>
+                <label for="year"><?php _e('Year', NMCL_TEXT_DOMAIN); ?></label>
             </td>
             <td>
                 <select name="year">

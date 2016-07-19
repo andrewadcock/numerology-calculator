@@ -15,7 +15,7 @@
  * Version:           0.0.3
  * Author:            Andrew Adcock
  * Author URI:        http://andrewadcock.com
- * Text Domain:       numerology-calculator-locale
+ * Text Domain:       numerology-calculator
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path:       /languages
@@ -25,6 +25,23 @@
 if (!defined('WPINC')) {
     die;
 }
+
+/**
+ * Define the text-domain
+ */
+if (!defined('NMCL_TEXT_DOMAIN')) {
+    define('NMCL_TEXT_DOMAIN', 'numerology-calculator');
+}
+
+/**
+ * Load the plugin text domain
+ */
+
+function plugin_textdomain()
+{
+    load_plugin_textdomain('numerology-calculator', false, dirname(plugin_basename(__FILE__)) . '/languages/');
+}
+add_action( 'plugins_loaded', 'plugin_textdomain' );
 
 /**
  * Include the core class responsible for loading all plugin components

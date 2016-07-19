@@ -1,3 +1,26 @@
 .nmcl-container {
-    background: red;
+}
+
+.nmcl-container.nmcl-light {
+    color: #000;
+}
+
+.nmcl-container.nmcl-dark {
+    background: black;
+    color: #fff;
+}
+
+.nmcl-container .nmcl-lpn {
+    display: inline-block;
+    font-size: 2em;
+    text-align: center;
+    vertical-align: top;
+    width: 2em;
+}
+
+.nmcl-container .nmcl-description {
+    display: inline-block;
+    font-size: 1em;
+    vertical-align: top;
+    width: calc(100% - 4em);
 }

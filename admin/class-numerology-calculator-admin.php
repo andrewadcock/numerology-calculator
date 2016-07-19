@@ -105,7 +105,7 @@ class Numerology_Calculator_Admin
 
         add_settings_section(
             'settings_main',
-            'Numerology Calculator Settings',
+            esc_html__('Numerology Calculator Settings', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'main_settings_section_text'
@@ -115,7 +115,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'theme_css_select',
-            'Select Display Theme',
+            esc_html__('Select Display Theme', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'theme_css_select'
@@ -126,7 +126,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn1',
-            'Life Path Number: 1',
+            esc_html__('Life Path Number: 1', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -140,7 +140,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn2',
-            'Life Path Number: 2',
+            esc_html__('Life Path Number: 2', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -154,7 +154,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn3',
-            'Life Path Number: 3',
+            esc_html__('Life Path Number: 3', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -168,7 +168,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn4',
-            'Life Path Number: 4',
+            esc_html__('Life Path Number: 4', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -182,7 +182,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn5',
-            'Life Path Number: 5',
+            esc_html__('Life Path Number: 5', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -196,7 +196,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn6',
-            'Life Path Number: 6',
+            esc_html__('Life Path Number: 6', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -210,7 +210,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn7',
-            'Life Path Number: 7',
+            esc_html__('Life Path Number: 7', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -224,7 +224,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn8',
-            'Life Path Number: 8',
+            esc_html__('Life Path Number: 8', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -238,7 +238,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn9',
-            'Life Path Number: 9',
+            esc_html__('Life Path Number: 9', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -252,7 +252,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn11',
-            'Life Path Number: 11',
+            esc_html__('Life Path Number: 11', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -266,7 +266,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn22',
-            'Life Path Number: 22',
+            esc_html__('Life Path Number: 22', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -280,7 +280,7 @@ class Numerology_Calculator_Admin
 
         add_settings_field(
             'lpn33',
-            'Life Path Number: 33',
+            esc_html__('Life Path Number: 33', NMCL_TEXT_DOMAIN),
             array(
                 $this,
                 'life_path_numbers'
@@ -294,13 +294,19 @@ class Numerology_Calculator_Admin
 
     }
 
+    /**
+     * Generate plugin info for users
+     */
     public function main_settings_section_text()
     {
-        echo '<p>This is the Numerology Calculator settings page. Please select from the options below.</p>';
-        echo '<p>Add the shortcode <code>[numerology-calculator]</code> to a post or page.</p>';
+        echo '<p class="description">' . __('This is the Numerology Calculator settings page. Please select from the options below.') . '</p>';
+        echo '<p>' . __('Add the shortcode to a post or page.') . ' <code>[numerology-calculator]</code></p>';
     }
 
 
+    /**
+     * Generate dropdown select for CSS theme options
+     */
     public function theme_css_select()
     {
         $options = get_option('nmcl_options');
@@ -308,14 +314,19 @@ class Numerology_Calculator_Admin
         $theme_css_select = $options['theme_css_select'];
         ?>
         <select id='dropdown-test' name='nmcl_options[theme_css_select]'">
-        <option value='none' <?php selected($theme_css_select, 'none'); ?>>None</option>
-        <option value='light' <?php selected($theme_css_select, 'light'); ?>>Light</option>
-        <option value='dark' <?php selected($theme_css_select, 'dark'); ?>>Dark</option>
+        <option value='none' <?php selected($theme_css_select, 'none'); ?>><?php _e('None', NMCL_TEXT_DOMAIN); ?></option>
+        <option value='light' <?php selected($theme_css_select, 'light'); ?>><?php _e('Light', NMCL_TEXT_DOMAIN); ?></option>
+        <option value='dark' <?php selected($theme_css_select, 'dark'); ?>><?php _e('Dark', NMCL_TEXT_DOMAIN); ?></option>
         </select>
 
         <?php
     }
 
+    /**
+     * Create textarea's for each life path number input
+     *
+     * @param $args
+     */
     public function life_path_numbers($args)
     {
         $id = $args['id'];
@@ -324,15 +335,21 @@ class Numerology_Calculator_Admin
         echo "<textarea id='{$id}' name='nmcl_options[{$id}]'>{$options[$id]}</textarea>";
     }
 
+    /**
+     * Validation for options
+     *
+     * @param $input
+     * @return mixed
+     */
     public function options_validate($input)
     {
-//        $newinput['theme_css_select'] = trim($input['theme_css_select']);
-//
-//        $newinput['dropdown_test'] = $input;
         $newinput = $input;
         return $newinput;
     }
 
+    /**
+     * Set defaults for all plugin options, these will be added if the option is empty.
+     */
     public function set_default_values()
     {
         if (get_option('nmcl_options') === false) {

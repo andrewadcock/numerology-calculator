@@ -120,14 +120,19 @@ class Numerology_Calculator_Common
          * Reduce to valid Life Path Number
          */
         $life_path_number = $this->computeLifePathNumber($initial_total);
-        echo $life_path_number;
 
         /**
          * Retrieve Life Path Number description
          */
         $life_path_number_description = $this->getLifePathNumberDescription($life_path_number);
 
-        echo $life_path_number_description;
+
+        /**
+         * Generate Output
+         */
+        $life_path_number_output = $this->lifePathNumberOutput($life_path_number, $life_path_number_description);
+
+        echo $life_path_number_output;
     }
 
     /**
@@ -189,5 +194,22 @@ class Numerology_Calculator_Common
         $nmcl_options = get_option('nmcl_options');
 
         return $nmcl_options['lpn' . $life_path_number];
+    }
+
+    public function lifePathNumberOutput($life_path_number, $life_path_number_description) {
+        $nmcl_options = get_option('nmcl_options');
+        $theme_style = $nmcl_options['theme_css_select'];
+        if( $theme_style == 'light' ) {
+            $container_class = 'nmcl-light';
+        } elseif ( $theme_style == 'dark') {
+            $container_class = 'nmcl-dark';
+        } else {
+            $container_class = '';
+        }
+        $output = "<div class='nmcl-container ". $container_class . "'>";
+            $output .= "<div class='nmcl-lpn'>" . $life_path_number . "</div>";
+            $output .= "<div class='nmcl-description'>" . $life_path_number_description . "</div>";
+        $output .= "</div>";
+        return $output;
     }
 }
